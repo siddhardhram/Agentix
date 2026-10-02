@@ -3,7 +3,7 @@ Core Configuration
 Loads environment variables, default budgets, and system thresholds.
 """
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     PORT: int = 8000
@@ -27,8 +27,6 @@ class Settings(BaseSettings):
     AUDIT_LOG_DIR: str = "./data/audit_logs"
     MEMORY_STORE_DIR: str = "./data/institutional_memory"
 
-    class Config:
-        env_file = ".env"
-        extra = "ignore"
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 settings = Settings()
