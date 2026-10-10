@@ -204,14 +204,17 @@ Agentix/
 │       │   ├── TicketIntakeForm.jsx     # Ticket & repo intake with instant feedback
 │       │   ├── ClarificationPrompt.jsx  # Interactive Q&A for missing info
 │       │   ├── LiveOrchestratorView.jsx # Dynamic stage-by-stage execution graph
-│       │   ├── ApprovalDrawer.jsx       # Diff viewer with 1-click Approve/Reject
+│       │   ├── ApprovalDrawer.jsx       # Diff viewer with 1-click Approve/Reject (RBAC gated)
 │       │   ├── EvidencePackageModal.jsx # Escalation bundle for high-risk issues
 │       │   └── AuditLedger.jsx          # Historical decision & tool-call explorer
 │       ├── pages/
+│       │   ├── Login.jsx                # Unified Login & Role selection
+│       │   ├── Register.jsx             # User registration
 │       │   ├── Dashboard.jsx            # Ticket overview & triage status
 │       │   └── TicketDetail.jsx         # Live telemetry & control cockpit
 │       ├── services/
-│       │   └── api.js                   # REST & WebSocket client
+│       │   ├── api.js                   # REST & WebSocket client
+│       │   └── auth.js                  # Client authentication & session service
 │       └── styles/
 │           └── index.css                # Premium dark glassmorphism design system
 │

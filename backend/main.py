@@ -11,13 +11,16 @@ backend_root = str(Path(__file__).resolve().parent)
 if backend_root not in sys.path:
     sys.path.insert(0, backend_root)
 
+# pyrefly: ignore [missing-import]
 from fastapi import FastAPI
+# pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.tickets import router as tickets_router
 from app.api.v1.approvals import router as approvals_router
 from app.api.v1.clarification import router as clarification_router
 from app.api.v1.audit import router as audit_router
 from app.api.v1.ws import router as ws_router
+from app.api.v1.auth import router as auth_router
 
 app = FastAPI(
     title="Agentix API",
@@ -35,6 +38,7 @@ app.add_middleware(
 )
 
 # Include API v1 routers
+app.include_router(auth_router)
 app.include_router(tickets_router)
 app.include_router(approvals_router)
 app.include_router(clarification_router)
@@ -46,5 +50,6 @@ def health_check():
     return {"status": "ok", "service": "Agentix Backend"}
 
 if __name__ == "__main__":
+    # pyrefly: ignore [missing-import]
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

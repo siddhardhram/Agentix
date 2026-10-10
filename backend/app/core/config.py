@@ -10,9 +10,11 @@ class Settings(BaseSettings):
     HOST: str = "0.0.0.0"
     CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
     
-    LLM_PROVIDER: str = "mock"
+    LLM_PROVIDER: str = "gemini"
     OPENAI_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-1.5-flash"
+    SECRET_KEY: str = "agentix_secure_jwt_secret_key_2026"
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     
     MAX_RETRIES_PER_TICKET: int = 3
