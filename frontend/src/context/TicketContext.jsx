@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { getTickets as supabaseGetTickets, createTicket as supabaseCreateTicket, updateTicket as supabaseUpdateTicket, deleteTicket as supabaseDeleteTicket, supabase } from '../services/supabase';
 import { fetchTickets as apiFetchTickets, createTicket as apiCreateTicket, updateTicket as apiUpdateTicket, deleteTicket as apiDeleteTicket } from '../services/api';
 import { useAuth } from './AuthContext';
+import { INITIAL_TICKETS } from '../services/mockData';
 
 const TicketContext = createContext({
   tickets: [],
@@ -51,7 +52,12 @@ export function TicketProvider({ children }) {
 
       const backendData = (apiRes.status === 'fulfilled' && Array.isArray(apiRes.value)) ? apiRes.value : [];
       const supabaseData = (supabaseRes.status === 'fulfilled' && Array.isArray(supabaseRes.value?.tickets)) ? supabaseRes.value.tickets : [];
-      const localData = getLocalTickets();
+      let localData = getLocalTickets();
+
+      if (localData.length === 0 && backendData.length === 0 && supabaseData.length === 0) {
+        localData = INITIAL_TICKETS;
+        saveLocalTickets(INITIAL_TICKETS);
+      }
 
       // Merge and deduplicate by ticket_ref, ticket_id, or id
       const seen = new Set();
